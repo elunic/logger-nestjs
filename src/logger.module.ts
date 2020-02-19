@@ -2,16 +2,21 @@ import { LogService, RootLogger } from '@elunic/logger';
 import { DynamicModule, Module, Provider } from '@nestjs/common';
 
 import { loggerNamespaces } from './inject-logger.decorator';
+import {
+  LoggerModuleAsyncOptions,
+  LoggerModuleLegacyOptions,
+  LoggerModuleOptions,
+  LOGGER_MODULE_OPTIONS,
+} from './types';
 
 export const LOGGER = Symbol('LOGGER');
 
-export interface LoggerModuleOptions {
-  isGlobal: boolean;
-}
-
 @Module({})
 export class LoggerModule {
-  static forRoot(logger: RootLogger, options: Partial<LoggerModuleOptions> = {}): DynamicModule {
+  static forRoot(
+    logger: RootLogger,
+    options: Partial<LoggerModuleLegacyOptions> = {},
+  ): DynamicModule {
     options = Object.assign(
       {
         isGlobal: true,
@@ -19,42 +24,74 @@ export class LoggerModule {
       options || {},
     );
 
-    const providers: Provider[] = [
-      {
-        provide: LOGGER,
-        useFactory: () => new LogService(logger),
-      },
-      ...this.createLoggerProviders(logger),
-    ];
+    const providers: Provider[] = [...this.createLoggerProviders()];
 
     return {
       module: LoggerModule,
       global: !!options.isGlobal,
-      providers,
+      providers: [
+        {
+          provide: LOGGER_MODULE_OPTIONS,
+          useValue: {
+            logger,
+            isGlobal: !!options.isGlobal,
+          },
+        },
+        ...providers,
+      ],
       exports: providers,
     };
   }
 
-  static forFeature(): DynamicModule {
+  static forRootAsync(options: LoggerModuleAsyncOptions): DynamicModule {
+    const providers: Provider[] = [...this.createLoggerProviders()];
+
     return {
       module: LoggerModule,
+      global: options.isGlobal === false ? false : true,
+      imports: options.imports,
+      providers: [
+        {
+          provide: LOGGER_MODULE_OPTIONS,
+          useFactory: options.useFactory,
+          inject: options.inject || [],
+        },
+        ...providers,
+      ],
+      exports: providers,
     };
   }
 
-  private static createLoggerProviders(logger: RootLogger): Provider[] {
-    const providers: Provider[] = [];
+  // static forFeature(): DynamicModule {
+  //   return {
+  //     module: LoggerModule,
+  //   };
+  // }
+
+  private static createLoggerProviders(): Provider[] {
+    const providers: Provider[] = [
+      {
+        provide: LOGGER,
+        useFactory: (loggerModuleOptions: LoggerModuleOptions) =>
+          new LogService(loggerModuleOptions.logger),
+        inject: [LOGGER_MODULE_OPTIONS],
+      },
+    ];
 
     for (const [logNamespace, [injectionToken, rawChildOptions]] of Array.from(loggerNamespaces)) {
       providers.push({
         provide: injectionToken,
-        useFactory: () => {
+        useFactory: (loggerModuleOptions: LoggerModuleOptions) => {
           if (typeof logNamespace === 'string') {
-            return new LogService(logger.createLogger(logNamespace, rawChildOptions));
+            return new LogService(
+              loggerModuleOptions.logger.createLogger(logNamespace, rawChildOptions),
+            );
           } else {
             // Currently, the only symbol identifies the root logger. [wh]
-            return new LogService(logger);
+            return new LogService(loggerModuleOptions.logger);
           }
         },
+        inject: [LOGGER_MODULE_OPTIONS],
       });
     }
 

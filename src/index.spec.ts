@@ -1,7 +1,5 @@
-import 'jasmine-expect';
-
 describe('stub', () => {
   it('should work', async () => {
-    expect(true).toBe(true);
+    expect(1).toBe(1);
   });
 });
