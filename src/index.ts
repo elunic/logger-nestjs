@@ -1,3 +1,3 @@
 export * from './logger.module';
-export { InjectLogger } from './inject-logger.decorator';
+export { InjectLogger, getLoggerTokenFor } from './inject-logger.decorator';
 export * from './types';

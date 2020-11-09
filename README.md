@@ -7,7 +7,6 @@ Written in TypeScript!
 A companion module for `@elunic/logger` providing a `LoggerModule` and decorators aiming at a simple
 & straightforward use with NestJS.
 
-
 ## Table of Contents
 
 - [`@elunic/logger-nestjs`](#eluniclogger-nestjs)
@@ -15,17 +14,16 @@ A companion module for `@elunic/logger` providing a `LoggerModule` and decorator
   - [Installation](#installation)
   - [Functionality](#functionality)
       - [The `@InjectLogger()` Decorator](#the-injectlogger-decorator)
+      - [`getLoggerTokenFor(childNamespace: string)`](#getloggertokenforchildnamespace-string)
   - [Mock usage](#mock-usage)
     - [Examples](#examples)
   - [License](#license)
-
 
 ## Installation
 
 ```bash
 $ npm install @elunic/logger-nestjs
 ```
-
 
 ## Functionality
 
@@ -39,17 +37,14 @@ import { LoggerModule, LOGGER } from '@elunic/logger-nestjs';
 const logger = createLogger('app');
 
 @Module({
-  imports: [
-    LoggerModule.forRoot(logger),
-  ],
+  imports: [LoggerModule.forRoot(logger)],
   providers: [HelperService],
 })
 export class AppModule {}
 
 @Injectable()
 class HelperService {
-  constructor(@Inject(LOGGER) private log: LogService) {
-  }
+  constructor(@Inject(LOGGER) private log: LogService) {}
 
   logFoo() {
     this.log.info('foo');
@@ -64,7 +59,7 @@ class HelperService {
 #### The `@InjectLogger()` Decorator
 
 As a preferred alternative, a child logger can be injected directly, without
-having to inject the root log service to create a logger in  a second
+having to inject the root log service to create a logger in a second
 step.
 
 The `@InjectLogger()` decorator takes a **namespace string as argument**.
@@ -79,9 +74,7 @@ import { LoggerModule, InjectLogger } from '@elunic/logger-nestjs';
 const logger = createLogger('app');
 
 @Module({
-  imports: [
-    LoggerModule.forRoot(logger),
-  ],
+  imports: [LoggerModule.forRoot(logger)],
   providers: [HelperService],
 })
 export class AppModule {}
@@ -91,8 +84,7 @@ class HelperService {
   constructor(
     @InjectLogger('helper') private log: LogService,
     @InjectLogger() private rootLog: LogService,
-    ) {
-  }
+  ) {}
 
   logFoo() {
     // This will output "INFO [app:helper] foo"
@@ -111,6 +103,12 @@ class HelperService {
 }
 ```
 
+#### `getLoggerTokenFor(childNamespace: string)`
+
+Returns the token used internally for injection by the module. This can be useful
+for defining a custom provider to override the returned value.
+
+A typical use case for this is returning a mock logger in tests.
 
 ## Mock usage
 
@@ -131,9 +129,9 @@ describe('NestJS module', () => {
 
   beforeEach(async () => {
     const module = await Test.createTestingModule({
-        imports: [MockNestjsLoggerModule],
-        providers: [CatsService],
-      }).compile();
+      imports: [MockNestjsLoggerModule],
+      providers: [CatsService],
+    }).compile();
 
     catsService = module.get<CatsService>(CatsService);
   });
@@ -150,7 +148,6 @@ describe('NestJS module', () => {
   });
 });
 ```
-
 
 ## License
 

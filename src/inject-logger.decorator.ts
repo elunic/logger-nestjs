@@ -2,6 +2,7 @@ import { CreateChildLoggerOptions } from '@elunic/logger';
 import { Inject } from '@nestjs/common';
 
 const TOKEN_PREFIX_BASE = 'LOGGER__';
+// We need the additional '_' to prevent accidental overlap with the root logger. [wh]
 export const TOKEN_PREFIX = TOKEN_PREFIX_BASE + '_';
 export const ROOT_LOGGER_TOKEN = Symbol('ROOT_LOGGER');
 
@@ -11,8 +12,9 @@ export const loggerNamespaces: Map<
 > = new Map();
 
 export function InjectLogger(childNamespace?: string, rawChildOptions?: CreateChildLoggerOptions) {
+  const injectionToken = getLoggerTokenFor(childNamespace);
+
   if (childNamespace) {
-    const injectionToken = TOKEN_PREFIX + childNamespace;
     if (!loggerNamespaces.has(childNamespace)) {
       loggerNamespaces.set(childNamespace, [injectionToken, rawChildOptions]);
     }
@@ -20,8 +22,15 @@ export function InjectLogger(childNamespace?: string, rawChildOptions?: CreateCh
     // We need the additional '_' to prevent accidental overlap with the root logger. [wh]
     return Inject(injectionToken);
   } else {
-    const injectionToken = TOKEN_PREFIX_BASE + 'ROOT';
     loggerNamespaces.set(ROOT_LOGGER_TOKEN, [injectionToken, undefined]);
     return Inject(injectionToken);
+  }
+}
+
+export function getLoggerTokenFor(childNamespace?: string): string {
+  if (childNamespace) {
+    return TOKEN_PREFIX + childNamespace;
+  } else {
+    return TOKEN_PREFIX_BASE + 'ROOT';
   }
 }
