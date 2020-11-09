@@ -38,8 +38,8 @@
     "email": "wh@elunic.com"
   },
   "devDependencies": {
-    "@commitlint/cli": "^8.3.5",
-    "@commitlint/config-conventional": "^8.3.4",
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
     "@elunic/ecs-commitlint": "^0.1.0",
     "@elunic/ecs-tsconfig": "^0.1.0",
     "@elunic/ecs-tslint": "^0.1.0",
