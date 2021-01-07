@@ -50,7 +50,6 @@
     "@nestjs/platform-express": "^7.6.5",
     "@nestjs/testing": "^7.6.5",
     "@types/eslint": "^7.2.6",
-    "@types/hapi__joi": "^16.0.12",
     "@types/jasmine": "^3.6.2",
     "@types/jasmine-expect": "^3.8.1",
     "@types/node": "^10.17.50",
@@ -73,9 +72,7 @@
     "tsc-watch": "^1.1.39",
     "typescript": "~3.7.5"
   },
-  "dependencies": {
-    "@hapi/joi": "^17.1.1"
-  },
+  "dependencies": {},
   "peerDependencies": {
     "@elunic/logger": "^4.0.0",
     "@nestjs/common": ">=6.0.0 <8.0.0",
