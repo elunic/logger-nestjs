@@ -42,7 +42,7 @@
     "@commitlint/config-conventional": "^11.0.0",
     "@elunic/ecs-commitlint": "^0.1.1",
     "@elunic/ecs-prettier": "^0.2.1",
-    "@elunic/ecs-tsconfig": "^0.1.0",
+    "@elunic/ecs-tsconfig": "^0.1.1",
     "@elunic/eslint-config-ecs": "^0.1.10",
     "@elunic/logger": "^4.0.4",
     "@nestjs/common": "^7.6.5",
