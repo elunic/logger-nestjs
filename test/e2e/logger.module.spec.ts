@@ -51,6 +51,7 @@ describe('LoggerModule', () => {
       @Injectable()
       class FooService {
         constructor(@Inject(LOGGER) private log: MockLogService) {
+          // eslint-disable-next-line unused-imports/no-unused-vars-ts
           injectedLogService = this.log;
         }
 
@@ -66,8 +67,6 @@ describe('LoggerModule', () => {
 
       @Injectable()
       class ConfigService {
-        constructor() {}
-
         getLogNamespace() {
           return 'mytestnamespace';
         }
@@ -128,8 +127,6 @@ describe('LoggerModule', () => {
 
         @Injectable()
         class ConfigService {
-          constructor() {}
-
           getLogNamespace() {
             return 'mytestnamespace';
           }
@@ -245,6 +242,7 @@ describe('LoggerModule', () => {
         @Injectable()
         class FooService {
           constructor(@Inject(LOGGER) private log: MockLogService) {
+            // eslint-disable-next-line unused-imports/no-unused-vars-ts
             injectedLogService = this.log;
           }
 
@@ -255,8 +253,6 @@ describe('LoggerModule', () => {
 
         @Injectable()
         class ConfigService {
-          constructor() {}
-
           getLogNamespace() {
             return 'mytestnamespace';
           }
@@ -317,6 +313,7 @@ describe('LoggerModule', () => {
         @Injectable()
         class FooService {
           constructor(@Inject(LOGGER) private log: MockLogService) {
+            // eslint-disable-next-line unused-imports/no-unused-vars-ts
             injectedLogService = this.log;
           }
 
@@ -332,8 +329,6 @@ describe('LoggerModule', () => {
 
         @Injectable()
         class ConfigService {
-          constructor() {}
-
           getLogNamespace() {
             return 'mytestnamespace';
           }

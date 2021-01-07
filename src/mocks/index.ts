@@ -19,7 +19,7 @@ export class MockNestjsLoggerModule {
       },
     ];
 
-    for (const [childNamespace, [injectionToken /*, rawChildOptions*/]] of Array.from(
+    for (const [childNamespace, [injectionToken /* , rawChildOptions*/]] of Array.from(
       loggerNamespaces,
     )) {
       providers.push({

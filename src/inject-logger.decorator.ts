@@ -7,11 +7,14 @@ export const TOKEN_PREFIX = TOKEN_PREFIX_BASE + '_';
 export const ROOT_LOGGER_TOKEN = Symbol('ROOT_LOGGER');
 
 export const loggerNamespaces: Map<
-  string | Symbol,
+  string | symbol,
   [string, CreateChildLoggerOptions | undefined]
 > = new Map();
 
-export function InjectLogger(childNamespace?: string, rawChildOptions?: CreateChildLoggerOptions) {
+export function InjectLogger(
+  childNamespace?: string,
+  rawChildOptions?: CreateChildLoggerOptions,
+): ReturnType<typeof Inject> {
   const injectionToken = getLoggerTokenFor(childNamespace);
 
   if (childNamespace) {

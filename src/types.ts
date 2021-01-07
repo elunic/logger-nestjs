@@ -13,8 +13,8 @@ export interface LoggerModuleLegacyOptions {
 
 export interface LoggerModuleAsyncOptions extends Pick<ModuleMetadata, 'imports'> {
   isGlobal?: boolean;
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   useFactory: (...args: any[]) => Promise<LoggerModuleOptions> | LoggerModuleOptions;
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   inject?: any[];
 }

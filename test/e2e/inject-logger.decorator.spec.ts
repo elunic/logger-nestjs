@@ -113,8 +113,6 @@ describe('@InjectLogger()', () => {
 
         @Injectable()
         class ConfigService {
-          constructor() {}
-
           getLogNamespace() {
             return 'mytestnamespace';
           }

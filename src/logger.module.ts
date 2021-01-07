@@ -3,10 +3,10 @@ import { DynamicModule, Module, Provider } from '@nestjs/common';
 
 import { loggerNamespaces } from './inject-logger.decorator';
 import {
+  LOGGER_MODULE_OPTIONS,
   LoggerModuleAsyncOptions,
   LoggerModuleLegacyOptions,
   LoggerModuleOptions,
-  LOGGER_MODULE_OPTIONS,
 } from './types';
 
 export const LOGGER = Symbol('LOGGER');
