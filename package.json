@@ -1,6 +1,6 @@
 {
   "name": "@elunic/logger-nestjs",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Provides a NestJS LoggerModule and decorators for use with @elunic/logger.",
   "main": "index.js",
   "typings": "index.d.ts",
@@ -38,12 +38,12 @@
     "email": "wh@elunic.com"
   },
   "devDependencies": {
-    "@commitlint/cli": "^11.0.0",
-    "@commitlint/config-conventional": "^11.0.0",
-    "@elunic/ecs-commitlint": "^0.1.1",
+    "@commitlint/cli": "^12.1.1",
+    "@commitlint/config-conventional": "^12.1.1",
+    "@elunic/ecs-commitlint": "^0.1.2",
     "@elunic/ecs-prettier": "^0.2.1",
     "@elunic/ecs-tsconfig": "^0.1.1",
-    "@elunic/eslint-config-ecs": "^0.1.10",
+    "@elunic/eslint-config-ecs": "^0.1.11",
     "@elunic/logger": "^4.0.4",
     "@nestjs/common": "^7.6.5",
     "@nestjs/core": "^7.6.5",
