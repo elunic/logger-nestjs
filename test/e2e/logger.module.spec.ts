@@ -2,6 +2,7 @@ import { LogService, RootLogger } from '@elunic/logger';
 import { MockLogService, MockRootLogger } from '@elunic/logger/mocks';
 import { Inject, Injectable, Module } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
+import * as assert from 'assert';
 
 import { LOGGER, LoggerModule } from '../../src/logger.module';
 
@@ -11,7 +12,7 @@ describe('LoggerModule', () => {
       const logger = new MockRootLogger('test');
 
       const rootModule = await Test.createTestingModule({
-        imports: [LoggerModule.forRoot((logger as unknown) as RootLogger)],
+        imports: [LoggerModule.forRoot(logger as unknown as RootLogger)],
       }).compile();
 
       const app = rootModule.createNestApplication();
@@ -30,7 +31,7 @@ describe('LoggerModule', () => {
 
       const logger = new MockRootLogger('mytestnamespace');
       const rootModule = await Test.createTestingModule({
-        imports: [LoggerModule.forRoot((logger as unknown) as RootLogger)],
+        imports: [LoggerModule.forRoot(logger as unknown as RootLogger)],
         providers: [FooService],
       }).compile();
 
@@ -88,7 +89,7 @@ describe('LoggerModule', () => {
 
               return {
                 // Cast to RootLogger is intentional to silence type issue
-                logger: (logger as unknown) as RootLogger,
+                logger: logger as unknown as RootLogger,
               };
             },
             inject: [ConfigService],
@@ -104,6 +105,7 @@ describe('LoggerModule', () => {
 
         throw new Error('should be thrown');
       } catch (err) {
+        assert(err instanceof Error);
         expect(err.message).not.toBe('should be thrown');
       }
     });
@@ -147,7 +149,7 @@ describe('LoggerModule', () => {
 
                 return {
                   // Cast to RootLogger is intentional to silence type issue
-                  logger: (logger as unknown) as RootLogger,
+                  logger: logger as unknown as RootLogger,
                 };
               },
               inject: [ConfigService],
@@ -193,7 +195,7 @@ describe('LoggerModule', () => {
 
       const rootModule = await Test.createTestingModule({
         imports: [
-          LoggerModule.forRoot((logger as unknown) as RootLogger, {
+          LoggerModule.forRoot(logger as unknown as RootLogger, {
             isGlobal: false,
           }),
         ],
@@ -216,7 +218,7 @@ describe('LoggerModule', () => {
       const logger = new MockRootLogger('mytestnamespace');
       const rootModule = await Test.createTestingModule({
         imports: [
-          LoggerModule.forRoot((logger as unknown) as RootLogger, {
+          LoggerModule.forRoot(logger as unknown as RootLogger, {
             isGlobal: false,
           }),
         ],
@@ -273,7 +275,7 @@ describe('LoggerModule', () => {
 
                 return {
                   // Cast to RootLogger is intentional to silence type issue
-                  logger: (logger as unknown) as RootLogger,
+                  logger: logger as unknown as RootLogger,
                   isGlobal: false,
                 };
               },
@@ -350,7 +352,7 @@ describe('LoggerModule', () => {
 
                 return {
                   // Cast to RootLogger is intentional to silence type issue
-                  logger: (logger as unknown) as RootLogger,
+                  logger: logger as unknown as RootLogger,
                 };
               },
               inject: [ConfigService],
@@ -366,6 +368,7 @@ describe('LoggerModule', () => {
 
           throw new Error('should not be thrown');
         } catch (err) {
+          assert(err instanceof Error);
           expect(err.message).not.toBe('should not be thrown');
         }
       });
