@@ -31,7 +31,7 @@ describe('@InjectLogger()', () => {
 
         logger = new MockRootLogger('mytestnamespace');
         const rootModule = await Test.createTestingModule({
-          imports: [LoggerModule.forRoot((logger as unknown) as RootLogger), FooModule],
+          imports: [LoggerModule.forRoot(logger as unknown as RootLogger), FooModule],
         }).compile();
 
         const app = rootModule.createNestApplication();
@@ -73,7 +73,7 @@ describe('@InjectLogger()', () => {
 
         logger = new MockRootLogger('mytestnamespace');
         const rootModule = await Test.createTestingModule({
-          imports: [LoggerModule.forRoot((logger as unknown) as RootLogger), FooModule],
+          imports: [LoggerModule.forRoot(logger as unknown as RootLogger), FooModule],
         }).compile();
 
         const app = rootModule.createNestApplication();
@@ -134,7 +134,7 @@ describe('@InjectLogger()', () => {
 
                 return {
                   // Cast to RootLogger is intentional to silence type issue
-                  logger: (logger as unknown) as RootLogger,
+                  logger: logger as unknown as RootLogger,
                 };
               },
               inject: [ConfigService],
