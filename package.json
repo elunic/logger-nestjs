@@ -45,10 +45,10 @@
     "@elunic/ecs-tsconfig": "^0.1.1",
     "@elunic/eslint-config-ecs": "^0.1.11",
     "@elunic/logger": "^5.1.0",
-    "@nestjs/common": "^9.3.1",
-    "@nestjs/core": "^9.3.1",
-    "@nestjs/platform-express": "^9.3.1",
-    "@nestjs/testing": "^9.3.1",
+    "@nestjs/common": "^10.2.10",
+    "@nestjs/core": "^10.2.10",
+    "@nestjs/platform-express": "^10.2.10",
+    "@nestjs/testing": "^10.2.10",
     "@types/eslint": "^7.2.6",
     "@types/jasmine": "^3.6.2",
     "@types/jasmine-expect": "^3.8.1",
@@ -75,8 +75,8 @@
   "dependencies": {},
   "peerDependencies": {
     "@elunic/logger": ">=4.0.0 <6.0.0",
-    "@nestjs/common": ">=6.0.0 <10.0.0",
-    "@nestjs/core": ">=6.0.0 <10.0.0"
+    "@nestjs/common": ">=6.0.0 <=10.0.0",
+    "@nestjs/core": ">=6.0.0 <=10.0.0"
   },
   "publishConfig": {
     "access": "public"
