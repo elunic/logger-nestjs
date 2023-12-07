@@ -1,6 +1,6 @@
 {
   "name": "@elunic/logger-nestjs",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "Provides a NestJS LoggerModule and decorators for use with @elunic/logger.",
   "main": "index.js",
   "typings": "index.d.ts",
@@ -74,8 +74,8 @@
   "dependencies": {},
   "peerDependencies": {
     "@elunic/logger": ">=4.0.0 <6.0.0",
-    "@nestjs/common": ">=6.0.0 <=10.0.0",
-    "@nestjs/core": ">=6.0.0 <=10.0.0"
+    "@nestjs/common": ">=6.0.0 <11.0.0",
+    "@nestjs/core": ">=6.0.0 <11.0.0"
   },
   "publishConfig": {
     "access": "public"
